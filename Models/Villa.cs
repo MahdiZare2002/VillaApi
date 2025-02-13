@@ -17,6 +17,10 @@ namespace OnlineShop.Models
         public string Address { get; set; }
         [Required, MaxLength(255)]
         public string Mobile { get; set; }
+        [Required]
+        public long DayPrice { get; set; }
+        [Required]
+        public long SellPrice { get; set; }
         public DateTime? Created { get; set; } = DateTime.Now;
         public List<Detail>? Details { get; set; }
     }
