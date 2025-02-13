@@ -50,7 +50,7 @@ namespace OnlineShop.Controllers.V1
             var mapperData = _mapper.Map<Detail>(detailModel);
             if (mapperData == null) return BadRequest();
             await _detailService.CreateDetail(mapperData);
-            return Ok("Created Successfuly");
+            return Ok("Created Successfully");
         }
 
         [HttpPatch("{DetailId:int}")]
@@ -60,7 +60,7 @@ namespace OnlineShop.Controllers.V1
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var mappedData = _mapper.Map<Detail>(detailDto);
             await _detailService.UpdateDetail(mappedData);
-            return Ok("Updated Successfuly");
+            return Ok("Updated Successfully");
         }
 
         [HttpDelete("[action]/{DetailId:int}")]
