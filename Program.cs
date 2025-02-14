@@ -15,7 +15,16 @@ services.AddAutoMapper(typeof(ModelMapper));
 
 services.AddControllers();
 services.AddEndpointsApiExplorer();
-services.AddSwaggerGen();
+services.AddSwaggerGen(option =>
+{
+    option.SwaggerDoc("VillaOpenApi",
+        new Microsoft.OpenApi.Models.OpenApiInfo()
+        {
+            Title = "Villa Api",
+            Version = "1",
+            Description = "api for villa rent and buy platform",
+        });
+});
 
 services.AddDbContext<DataContext>(x =>
 {
@@ -30,7 +39,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/VillaOpenApi/swagger.json", "Villa API V1");
+    });
 }
 
 app.UseHttpsRedirection();
