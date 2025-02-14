@@ -21,6 +21,11 @@ namespace OnlineShop.Controllers.V1
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// get all villa list
+        /// </summary>
+        /// <returns></returns>
+
         [HttpGet("[action]")]
         public async Task<IActionResult> getDataAsync()
         {
@@ -29,6 +34,11 @@ namespace OnlineShop.Controllers.V1
             return Ok(new { mappedData });
         }
 
+        /// <summary>
+        /// get a villa with id
+        /// </summary>
+        /// <param name="villaId"></param>
+        /// <returns></returns>
         [HttpGet("[action]/{villaId:int}", Name = "GetDetails")]
         public async Task<IActionResult> GetDetailsAsync([FromRoute] int villaId)
         {
@@ -38,6 +48,11 @@ namespace OnlineShop.Controllers.V1
             return Ok(model);
         }
 
+        /// <summary>
+        /// create a new villa
+        /// </summary>
+        /// <param name="villaData"></param>
+        /// <returns></returns>
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateVilla([FromBody] Models.Villa villaData)
         {
@@ -50,6 +65,13 @@ namespace OnlineShop.Controllers.V1
             return Ok(result);
         }
 
+
+        /// <summary>
+        /// update exist villa
+        /// </summary>
+        /// <param name="villaId"></param>
+        /// <param name="villaData"></param>
+        /// <returns></returns>
         [HttpPatch("{villaId:int}")]
         public async Task<IActionResult> UpdateVilla(int villaId, Models.Villa villaData)
         {
@@ -70,6 +92,11 @@ namespace OnlineShop.Controllers.V1
             return StatusCode(500, ModelState);
         }
 
+        /// <summary>
+        /// delete villa with id
+        /// </summary>
+        /// <param name="villaId"></param>
+        /// <returns></returns>
         [HttpDelete("{villaId:int}")]
         public async Task<IActionResult> DeleteVilla(int villaId)
         {

@@ -24,6 +24,11 @@ namespace OnlineShop.Controllers.V1
             _villaService = villaService;
         }
 
+        /// <summary>
+        /// get all details for a villa
+        /// </summary>
+        /// <param name="villaId"></param>
+        /// <returns></returns>
         [HttpGet("[action]/{villaId:int}")]
         public async Task<IActionResult> GetAllVillaDetails(int villaId)
         {
@@ -34,6 +39,11 @@ namespace OnlineShop.Controllers.V1
             return Ok(MappedData);
         }
 
+        /// <summary>
+        /// get a detail with id
+        /// </summary>
+        /// <param name="detailId"></param>
+        /// <returns></returns>
         [HttpGet("[action]/{detailId:int}")]
         public async Task<IActionResult> GetDetailById(int detailId)
         {
@@ -43,6 +53,11 @@ namespace OnlineShop.Controllers.V1
             return Ok(mappedData);
         }
 
+        /// <summary>
+        /// create a new detail for villa
+        /// </summary>
+        /// <param name="detailModel"></param>
+        /// <returns></returns>
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateVillaDetail([FromBody] DetailDto detailModel)
         {
@@ -53,6 +68,12 @@ namespace OnlineShop.Controllers.V1
             return Ok("Created Successfully");
         }
 
+        /// <summary>
+        /// update a villa using id
+        /// </summary>
+        /// <param name="detailDto"></param>
+        /// <param name="DetailId"></param>
+        /// <returns></returns>
         [HttpPatch("{DetailId:int}")]
         public async Task<IActionResult> UpdateDetail([FromBody] DetailDto detailDto, int DetailId)
         {
@@ -63,6 +84,11 @@ namespace OnlineShop.Controllers.V1
             return Ok("Updated Successfully");
         }
 
+        /// <summary>
+        /// delete villa detail with id
+        /// </summary>
+        /// <param name="DetailId"></param>
+        /// <returns></returns>
         [HttpDelete("[action]/{DetailId:int}")]
         public async Task<IActionResult> DeleteDetail(int DetailId)
         {

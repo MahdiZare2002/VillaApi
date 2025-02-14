@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OnlineShop</name>
+    </assembly>
+    <members>
+        <member name="M:OnlineShop.Controllers.V1.DetailController.GetAllVillaDetails(System.Int32)">
+            <summary>
+            get all details for a villa
+            </summary>
+            <param name="villaId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShop.Controllers.V1.DetailController.GetDetailById(System.Int32)">
+            <summary>
+            get a detail with id
+            </summary>
+            <param name="detailId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShop.Controllers.V1.DetailController.CreateVillaDetail(OnlineShop.Dtos.DetailDto)">
+            <summary>
+            create a new detail for villa
+            </summary>
+            <param name="detailModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShop.Controllers.V1.DetailController.UpdateDetail(OnlineShop.Dtos.DetailDto,System.Int32)">
+            <summary>
+            update a villa using id
+            </summary>
+            <param name="detailDto"></param>
+            <param name="DetailId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShop.Controllers.V1.DetailController.DeleteDetail(System.Int32)">
+            <summary>
+            delete villa detail with id
+            </summary>
+            <param name="DetailId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShop.Controllers.V1.VillaController.getDataAsync">
+            <summary>
+            get all villa list
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShop.Controllers.V1.VillaController.GetDetailsAsync(System.Int32)">
+            <summary>
+            get a villa with id
+            </summary>
+            <param name="villaId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShop.Controllers.V1.VillaController.CreateVilla(OnlineShop.Models.Villa)">
+            <summary>
+            create a new villa
+            </summary>
+            <param name="villaData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShop.Controllers.V1.VillaController.UpdateVilla(System.Int32,OnlineShop.Models.Villa)">
+            <summary>
+            update exist villa
+            </summary>
+            <param name="villaId"></param>
+            <param name="villaData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShop.Controllers.V1.VillaController.DeleteVilla(System.Int32)">
+            <summary>
+            delete villa with id
+            </summary>
+            <param name="villaId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:OnlineShop.Migrations.add_villa_table">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineShop.Migrations.add_villa_table.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineShop.Migrations.add_villa_table.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineShop.Migrations.add_villa_table.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:OnlineShop.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineShop.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineShop.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineShop.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:OnlineShop.Migrations.add_detail_table">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineShop.Migrations.add_detail_table.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineShop.Migrations.add_detail_table.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineShop.Migrations.add_detail_table.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:OnlineShop.Migrations.update_villa_table">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineShop.Migrations.update_villa_table.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineShop.Migrations.update_villa_table.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineShop.Migrations.update_villa_table.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

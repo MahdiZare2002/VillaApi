@@ -24,6 +24,8 @@ services.AddSwaggerGen(option =>
             Version = "1",
             Description = "api for villa rent and buy platform",
         });
+    var path = Path.Combine(AppContext.BaseDirectory, "SwaggerComment.xml");
+    option.IncludeXmlComments(path);
 });
 
 services.AddDbContext<DataContext>(x =>
