@@ -27,6 +27,7 @@ namespace OnlineShop.Controllers.V1
         /// <returns></returns>
 
         [HttpGet("[action]")]
+        [ProducesResponseType(StatusCodes.Status200OK , Type = typeof(List<VillaDto>))]
         public async Task<IActionResult> getDataAsync()
         {
             var data = await _service.GetAll().ToListAsync();
@@ -40,6 +41,8 @@ namespace OnlineShop.Controllers.V1
         /// <param name="villaId"></param>
         /// <returns></returns>
         [HttpGet("[action]/{villaId:int}", Name = "GetDetails")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(VillaDto))]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> GetDetailsAsync([FromRoute] int villaId)
         {
             var villa = await _service.GetById(villaId);
@@ -54,6 +57,8 @@ namespace OnlineShop.Controllers.V1
         /// <param name="villaData"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Villa))]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> CreateVilla([FromBody] Models.Villa villaData)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -62,7 +67,7 @@ namespace OnlineShop.Controllers.V1
             {
                 return CreatedAtRoute("GetDetails", new { villaId = result.Id }, result);
             }
-            return Ok(result);
+            return StatusCode(500);
         }
 
 
@@ -73,6 +78,9 @@ namespace OnlineShop.Controllers.V1
         /// <param name="villaData"></param>
         /// <returns></returns>
         [HttpPatch("{villaId:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(Villa))]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> UpdateVilla(int villaId, Models.Villa villaData)
         {
             if (!ModelState.IsValid)
@@ -98,6 +106,9 @@ namespace OnlineShop.Controllers.V1
         /// <param name="villaId"></param>
         /// <returns></returns>
         [HttpDelete("{villaId:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(DetailDto))]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> DeleteVilla(int villaId)
         {
             var villa = await _service.GetById(villaId);

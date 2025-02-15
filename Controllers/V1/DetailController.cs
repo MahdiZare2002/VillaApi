@@ -30,6 +30,7 @@ namespace OnlineShop.Controllers.V1
         /// <param name="villaId"></param>
         /// <returns></returns>
         [HttpGet("[action]/{villaId:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<DetailDto>))]
         public async Task<IActionResult> GetAllVillaDetails(int villaId)
         {
             var villa = await _villaService.GetById(villaId);
@@ -44,7 +45,8 @@ namespace OnlineShop.Controllers.V1
         /// </summary>
         /// <param name="detailId"></param>
         /// <returns></returns>
-        [HttpGet("[action]/{detailId:int}")]
+        [HttpGet("[action]/{detailId:int}", Name = "GetById")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DetailDto))]
         public async Task<IActionResult> GetDetailById(int detailId)
         {
             var detail = await _detailService.GetDetail(detailId);
@@ -59,13 +61,17 @@ namespace OnlineShop.Controllers.V1
         /// <param name="detailModel"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(DetailDto))]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> CreateVillaDetail([FromBody] DetailDto detailModel)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var mapperData = _mapper.Map<Detail>(detailModel);
             if (mapperData == null) return BadRequest();
             await _detailService.CreateDetail(mapperData);
-            return Ok("Created Successfully");
+            var detailDto = _mapper.Map<DetailDto>(detailModel);
+            return CreatedAtRoute("GetById", new { detailId = detailDto.Detailid}, detailDto);
         }
 
         /// <summary>
@@ -75,13 +81,16 @@ namespace OnlineShop.Controllers.V1
         /// <param name="DetailId"></param>
         /// <returns></returns>
         [HttpPatch("{DetailId:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(DetailDto))]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> UpdateDetail([FromBody] DetailDto detailDto, int DetailId)
         {
             if (detailDto.Detailid != DetailId) return NotFound();
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var mappedData = _mapper.Map<Detail>(detailDto);
             await _detailService.UpdateDetail(mappedData);
-            return Ok("Updated Successfully");
+            return StatusCode(204);
         }
 
         /// <summary>
@@ -90,12 +99,15 @@ namespace OnlineShop.Controllers.V1
         /// <param name="DetailId"></param>
         /// <returns></returns>
         [HttpDelete("[action]/{DetailId:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(DetailDto))]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> DeleteDetail(int DetailId)
         {
             var detail = await _detailService.GetDetail(DetailId);
             if (detail == null) return NotFound();
             await _detailService.DeleteDetail(detail);
-            return Ok("deleted successfully");
+            return NoContent();
         }
     }
 }
