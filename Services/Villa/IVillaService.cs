@@ -11,6 +11,6 @@ namespace OnlineShop.Services.Villa
         Task<Models.Villa> Create(Models.Villa villa);
         Task<Models.Villa> Update(Models.Villa villa);
         Task<Models.Villa> Delete(Models.Villa villa);
-        VillaPagination SerachVilla(int pageId, string filter, int take);
+        Task<VillaPagination> SerachVillaAsync(int pageId, string filter, int take);
     }
 }

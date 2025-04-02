@@ -15,10 +15,10 @@ namespace OnlineShop.Controllers.V2
         }
 
         [HttpGet]
-        public IActionResult Search(int pageId = 1, string filter = "", int take = 2)
+        public async Task<IActionResult> Search(int pageId = 1, string filter = "", int take = 2)
         {
             if (pageId < 1 || take < 1) return BadRequest();
-            var data = _villaService.SerachVilla(pageId, filter, take);
+            var data = await _villaService.SerachVillaAsync(pageId, filter, take);
             return Ok(data);
         }
     }

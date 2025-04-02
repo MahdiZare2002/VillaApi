@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using OnlineShop.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace OnlineShop.Dtos
 {
@@ -13,6 +14,6 @@ namespace OnlineShop.Dtos
         public long DayPrice { get; set; }
         public long SellPrice { get; set; }
         public DateTime? Created { get; set; } = DateTime.Now;
-        public List<VillaDto> Details { get; set; }
+        public List<DetailDto>? Details { get; set; }
     }
 }

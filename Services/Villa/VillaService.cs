@@ -49,29 +49,28 @@ namespace OnlineShop.Services.Villa
             return data;
         }
 
-        public VillaPagination SerachVilla(int pageId, string filter, int take)
+        public async Task<VillaPagination> SerachVillaAsync(int pageId, string filter, int take)
         {
             IQueryable<Models.Villa> result = _context.Villas.Include(x => x.Details);
             if (!string.IsNullOrEmpty(filter))
             {
-                result = result.
-                Where(r => 
-                r.Name.Contains(filter) 
-                || r.State.Contains(filter) 
-                || r.City.Contains(filter) 
-                || r.Address.Contains(filter));
+                result = result.Where(r =>
+                    r.Name.Contains(filter) ||
+                    r.State.Contains(filter) ||
+                    r.City.Contains(filter) ||
+                    r.Address.Contains(filter));
             }
-
             VillaPagination pagination = new();
             pagination.Generate(result, pageId, take);
             pagination.Filter = filter;
-            pagination.Villas = new();
+            pagination.Villas = new List<VillaSearchDto>();
             int skip = (pageId - 1) * take;
-            var list = result.Skip(skip).Take(take).ToList();
-            list.ForEach(x =>
+            var list = await result.Skip(skip).Take(take).ToListAsync();
+
+            foreach (var x in list)
             {
                 pagination.Villas.Add(_mapper.Map<VillaSearchDto>(x));
-            });
+            }
 
             return pagination;
         }
