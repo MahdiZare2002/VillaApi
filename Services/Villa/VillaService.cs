@@ -1,16 +1,22 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using OnlineShop.Context;
+using OnlineShop.Models;
+using OnlineShop.Pagination;
 using System.Linq.Expressions;
+using AutoMapper;
+using OnlineShop.Dtos;
 
 namespace OnlineShop.Services.Villa
 {
     public class VillaService : IVillaService
     {
         private readonly DataContext _context;
-        public VillaService(DataContext context) 
+        private readonly IMapper _mapper;
+        public VillaService(DataContext context, IMapper mapper) 
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<Models.Villa> Create(Models.Villa villa)
@@ -41,6 +47,33 @@ namespace OnlineShop.Services.Villa
         {
             var data = await _context.Villas.FindAsync(id);
             return data;
+        }
+
+        public VillaPagination SerachVilla(int pageId, string filter, int take)
+        {
+            IQueryable<Models.Villa> result = _context.Villas.Include(x => x.Details);
+            if (!string.IsNullOrEmpty(filter))
+            {
+                result = result.
+                Where(r => 
+                r.Name.Contains(filter) 
+                || r.State.Contains(filter) 
+                || r.City.Contains(filter) 
+                || r.Address.Contains(filter));
+            }
+
+            VillaPagination pagination = new();
+            pagination.Generate(result, pageId, take);
+            pagination.Filter = filter;
+            pagination.Villas = new();
+            int skip = (pageId - 1) * take;
+            var list = result.Skip(skip).Take(take).ToList();
+            list.ForEach(x =>
+            {
+                pagination.Villas.Add(_mapper.Map<VillaSearchDto>(x));
+            });
+
+            return pagination;
         }
 
         public async Task<Models.Villa> Update(Models.Villa villa)

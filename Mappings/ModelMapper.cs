@@ -10,6 +10,7 @@ namespace OnlineShop.Mappings
         {
             CreateMap<Villa, VillaDto>();
             CreateMap<Detail, DetailDto>().ReverseMap();
+            CreateMap<Villa, VillaSearchDto>();
         }
     }
 }

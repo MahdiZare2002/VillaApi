@@ -1,4 +1,5 @@
 ﻿using OnlineShop.Models;
+using OnlineShop.Pagination;
 using System.Linq.Expressions;
 
 namespace OnlineShop.Services.Villa
@@ -10,5 +11,6 @@ namespace OnlineShop.Services.Villa
         Task<Models.Villa> Create(Models.Villa villa);
         Task<Models.Villa> Update(Models.Villa villa);
         Task<Models.Villa> Delete(Models.Villa villa);
+        VillaPagination SerachVilla(int pageId, string filter, int take);
     }
 }
