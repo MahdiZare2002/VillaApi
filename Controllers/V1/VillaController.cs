@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Asp.Versioning;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,8 @@ using OnlineShop.Services.Villa;
 
 namespace OnlineShop.Controllers.V1
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/villa")]
+    [ApiVersion(1.0)]
     [ApiController]
     public class VillaController : ControllerBase
     {

@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Services.Villa;
 
 namespace OnlineShop.Controllers.V2
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/villa")]
+    [ApiVersion(2.0)]
     [ApiController]
     public class VillaV2Controller : ControllerBase
     {
