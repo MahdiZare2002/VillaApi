@@ -25,5 +25,7 @@ namespace OnlineShop.Dtos
         public long DayPrice { get; set; }
         [Required(ErrorMessage = "قیمت فروش  ویلا اجباری است")]
         public long SellPrice { get; set; }
+        [Required]
+        public DateTime? Created { get; set; } = DateTime.Now;
     }
 }
