@@ -1,10 +1,13 @@
 using Asp.Versioning;
+using Asp.Versioning.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using OnlineShop.Context;
 using OnlineShop.Mappings;
 using OnlineShop.Services.Detail;
 using OnlineShop.Services.Villa;
+using OnlineShop.Utility;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,22 +28,17 @@ services.AddApiVersioning(options =>
     options.AssumeDefaultVersionWhenUnspecified = true; // Default if no version specified
     options.DefaultApiVersion = new ApiVersion(1, 0);
     options.ApiVersionReader = new UrlSegmentApiVersionReader(); // Read version from URL
-}).AddMvc();
+}).AddApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV"; // v1, v2, etc.
+    options.SubstituteApiVersionInUrl = true;
+});
 #endregion
 
 #region Swagger
-services.AddSwaggerGen(option =>
-{
-    option.SwaggerDoc("VillaOpenApi",
-        new Microsoft.OpenApi.Models.OpenApiInfo()
-        {
-            Title = "Villa Api",
-            Version = "1",
-            Description = "api for villa rent and buy platform",
-        });
-    var path = Path.Combine(AppContext.BaseDirectory, "SwaggerComment.xml");
-    option.IncludeXmlComments(path);
-});
+services.AddTransient<IConfigureOptions<SwaggerGenOptions>, SwaggerVillaDocument>();
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
 #endregion
 
 services.AddDbContext<DataContext>(x =>
@@ -55,10 +53,15 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/VillaOpenApi/swagger.json", "Villa API V1");
+        foreach (var description in provider.ApiVersionDescriptions)
+        {
+            c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
+                description.GroupName.ToUpperInvariant());
+        }
     });
 }
 
