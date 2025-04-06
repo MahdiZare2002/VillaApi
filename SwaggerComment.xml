@@ -123,5 +123,17 @@
         <member name="M:OnlineShop.Migrations.update_villa_table.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:OnlineShop.Migrations.add_customer_table">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineShop.Migrations.add_customer_table.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineShop.Migrations.add_customer_table.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineShop.Migrations.add_customer_table.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

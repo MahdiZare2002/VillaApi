@@ -17,5 +17,6 @@ namespace OnlineShop.Context
 
         public DbSet<Villa> Villas { get; set; }
         public DbSet<Detail> Details { get; set; }
+        public DbSet<Customer> Customers { get; set; }
     }
 }
