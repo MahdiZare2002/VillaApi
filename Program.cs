@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using OnlineShop.Context;
 using OnlineShop.Mappings;
+using OnlineShop.Services.Customer;
 using OnlineShop.Services.Detail;
 using OnlineShop.Services.Villa;
 using OnlineShop.Utility;
@@ -48,6 +49,7 @@ services.AddDbContext<DataContext>(x =>
 
 services.AddTransient<IVillaService, VillaService>();
 services.AddTransient<IDetailService, DetailService>();
+services.AddTransient<ICustomerService, CustomerService>();
 
 var app = builder.Build();
 
