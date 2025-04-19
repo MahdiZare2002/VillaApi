@@ -1,7 +1,9 @@
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using OnlineShop.Context;
 using OnlineShop.Mappings;
 using OnlineShop.Services.Customer;
@@ -9,6 +11,7 @@ using OnlineShop.Services.Detail;
 using OnlineShop.Services.Villa;
 using OnlineShop.Utility;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +43,30 @@ services.AddApiVersioning(options =>
 services.AddTransient<IConfigureOptions<SwaggerGenOptions>, SwaggerVillaDocument>();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
+#endregion
+
+#region Jwt
+var key = Encoding.ASCII.GetBytes("Jwt Token");
+
+services.AddAuthentication(x =>
+{
+    x.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(option =>
+{
+    option.TokenValidationParameters = new TokenValidationParameters
+    {
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = "MahdiZare",
+        ValidateIssuer = true,
+        ValidAudience = "OnlineShop",
+        ValidateAudience = true,
+        ValidateLifetime = true,
+    };
+});
+
 #endregion
 
 services.AddDbContext<DataContext>(x =>
