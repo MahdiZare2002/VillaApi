@@ -46,7 +46,11 @@ services.AddSwaggerGen();
 #endregion
 
 #region Jwt
-var key = Encoding.ASCII.GetBytes("Jwt Token");
+var JwtSettingSection = builder.Configuration.GetSection("JwtSettings");
+services.Configure<JWTSettings>(JwtSettingSection);
+
+var jwtsetting = JwtSettingSection.Get<JWTSettings>();
+var key = Encoding.ASCII.GetBytes(jwtsetting.Secret);
 
 services.AddAuthentication(x =>
 {
@@ -59,9 +63,9 @@ services.AddAuthentication(x =>
     {
         IssuerSigningKey = new SymmetricSecurityKey(key),
         ValidateIssuerSigningKey = true,
-        ValidIssuer = "MahdiZare",
+        ValidIssuer = jwtsetting.Issuer,
         ValidateIssuer = true,
-        ValidAudience = "OnlineShop",
+        ValidAudience = jwtsetting.Audience,
         ValidateAudience = true,
         ValidateLifetime = true,
     };
@@ -95,6 +99,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

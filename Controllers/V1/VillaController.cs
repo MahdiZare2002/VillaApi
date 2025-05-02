@@ -28,6 +28,7 @@ namespace OnlineShop.Controllers.V1
         /// </summary>
         /// <returns></returns>
 
+        [Authorize]
         [HttpGet("[action]")]
         [ProducesResponseType(StatusCodes.Status200OK , Type = typeof(List<VillaDto>))]
         public async Task<IActionResult> getDataAsync()

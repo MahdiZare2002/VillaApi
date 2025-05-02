@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.CustomerModels;
+using OnlineShop.Models;
 using OnlineShop.Services.Customer;
 
 namespace OnlineShop.Controllers.V1
@@ -37,6 +38,23 @@ namespace OnlineShop.Controllers.V1
                 ModelState.AddModelError("", "مشکلی در سیستم به وجود آمد");
                 return BadRequest(ModelState);
             }
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] RegisterModel login)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            if (!await _customerService.PasswordIsCorrect(login.Mobile, login.Password))
+            {
+                ModelState.AddModelError("model.Mobile", "کاربری یافت نشد .");
+                return BadRequest(ModelState);
+            }
+            var user = await _customerService.Login(login.Mobile, login.Password);
+            if (user == null) return NotFound();
+
+            return Ok(user);
         }
     }
 }
