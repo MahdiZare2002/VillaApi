@@ -1,10 +1,12 @@
 ﻿
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using OnlineShop.Context;
 using OnlineShop.CustomerModels;
+using OnlineShop.Dtos;
 using OnlineShop.Utility;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -16,10 +18,12 @@ namespace OnlineShop.Services.Customer
     {
         private readonly DataContext _context;
         private readonly JWTSettings _jwtSettings;
-        public CustomerService(DataContext context, IOptions<JWTSettings> settings)
+        private readonly IMapper _mapper;
+        public CustomerService(DataContext context, IOptions<JWTSettings> settings, IMapper mapper)
         {
             _context = context;
             _jwtSettings = settings.Value;
+            _mapper = mapper;
         }
 
         public async Task<bool> ExistMobile(string mobile)
@@ -29,7 +33,7 @@ namespace OnlineShop.Services.Customer
             return await _context.Customers.AnyAsync(x => x.Mobile.Trim() == mobile.Trim());
         }
 
-        public async Task<Models.Customer> Login(string mobile, string password)
+        public async Task<LoginResultDto> Login(string mobile, string password)
         {
             var hashedPassword = PasswordHelper.EncodeProSecurity(password);
             var customer = await _context.Customers.SingleOrDefaultAsync(c => c.Mobile.Trim() == mobile.Trim() && c.Password == hashedPassword);
@@ -57,7 +61,7 @@ namespace OnlineShop.Services.Customer
 
             var token = tokenHandler.CreateToken(tokenDescription);
             customer.JwtSecret = tokenHandler.WriteToken(token);
-            return customer;
+            return _mapper.Map<LoginResultDto>(customer);
         }
 
         public async Task<bool> PasswordIsCorrect(string mobile, string password)

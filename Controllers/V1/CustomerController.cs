@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.CustomerModels;
+using OnlineShop.Dtos;
 using OnlineShop.Models;
 using OnlineShop.Services.Customer;
 
@@ -18,7 +19,16 @@ namespace OnlineShop.Controllers.V1
             _customerService = customerService;
         }
 
+
+        /// <summary>
+        /// Register Customer
+        /// </summary>
+        /// <param name="model">Mobile & Password</param>
+        /// <returns></returns>
         [HttpPost("register")]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
              if (!ModelState.IsValid) 
@@ -40,7 +50,15 @@ namespace OnlineShop.Controllers.V1
             }
         }
 
+        /// <summary>
+        /// Login Customer
+        /// </summary>
+        /// <param name="login">Mobile & Password</param>
+        /// <returns></returns>
         [HttpPost("login")]
+        [ProducesResponseType(200, Type = typeof(LoginResultDto))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Login([FromBody] RegisterModel login)
         {
             if (!ModelState.IsValid)
