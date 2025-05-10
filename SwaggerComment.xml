@@ -4,6 +4,8 @@
         <name>OnlineShop</name>
     </assembly>
     <members>
+        <!-- Badly formed XML comment ignored for member "M:OnlineShop.Controllers.V1.CustomerController.Register(OnlineShop.CustomerModels.RegisterModel)" -->
+        <!-- Badly formed XML comment ignored for member "M:OnlineShop.Controllers.V1.CustomerController.Login(OnlineShop.CustomerModels.RegisterModel)" -->
         <member name="M:OnlineShop.Controllers.V1.DetailController.GetAllVillaDetails(System.Int32)">
             <summary>
             get all details for a villa
@@ -74,6 +76,11 @@
             </summary>
             <param name="villaId"></param>
             <returns></returns>
+        </member>
+        <member name="P:OnlineShop.Dtos.LoginResultDto.JwtSecret">
+            <summary>
+            توکن احراز هویت bearer
+            </summary>
         </member>
         <member name="T:OnlineShop.Migrations.add_villa_table">
             <inheritdoc />
